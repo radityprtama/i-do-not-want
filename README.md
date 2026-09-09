@@ -39,13 +39,13 @@ The intentionally silly names are kept below the Agent Skills 64-character
 Install the collection:
 
 ```bash
-npx skills add <owner>/i-do-not-want
+npx skills add radityprtama/i-do-not-want
 ```
 
 Install one fear:
 
 ```bash
-npx skills add <owner>/i-do-not-want \
+npx skills add radityprtama/i-do-not-want \
   --skill i-do-not-want-my-website-to-get-sued
 ```
 
