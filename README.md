@@ -111,6 +111,22 @@ Severity is separate:
 There is deliberately **no default 0–100 score**. Fake precision is still fake,
 even if it has a progress bar.
 
+### Machine-readable reports
+
+A versioned JSON Schema Draft 2020-12 contract is available at
+[`schemas/audit-report-v1.schema.json`](schemas/audit-report-v1.schema.json), with
+[a machine-readable example](examples/audit-report.v1.json) and a
+[generated human view](examples/example-report.generated.md). The schema enforces
+that `PASS` contains evidence and keeps verification provenance nonnumeric.
+
+Validate it locally with pinned Ajv tooling:
+
+```bash
+npm ci
+npm run validate:reports
+npm run render:report -- --check
+```
+
 ## Example
 
 ```text

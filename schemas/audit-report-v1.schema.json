@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/radityprtama/i-do-not-want/main/schemas/audit-report-v1.schema.json",
+  "title": "i-do-not-want audit report contract v1",
+  "type": "object",
+  "required": ["contractVersion", "target", "evidenceMode", "findings", "shipDecision"],
+  "properties": {
+    "contractVersion": { "const": "1.0.0" },
+    "target": {
+      "type": "object",
+      "required": ["name", "paths"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidenceMode": { "type": "string", "minLength": 1 },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "shipDecision": {
+      "enum": ["DO_NOT_SHIP", "SHIP_WITH_WARNINGS", "SHIP"]
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "required": ["kind", "location"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "runtime",
+            "test",
+            "configuration",
+            "source",
+            "manifest",
+            "documentation",
+            "user-confirmation"
+          ]
+        },
+        "location": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "verification": {
+      "type": "object",
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "enum": [
+            "runtime-observation",
+            "test-result",
+            "configuration-review",
+            "source-review",
+            "manifest-review",
+            "documentation-review",
+            "user-confirmation"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "finding": {
+      "type": "object",
+      "required": ["checkId", "domain", "status", "rationale", "verification", "limitations"],
+      "properties": {
+        "checkId": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+-[0-9]{3}$"
+        },
+        "domain": {
+          "enum": ["security", "legal-trust", "privacy", "accessibility", "production"]
+        },
+        "status": {
+          "enum": ["PASS", "WARN", "FAIL", "BLOCKED", "NOT_APPLICABLE", "NOT_VERIFIED"]
+        },
+        "severity": {
+          "enum": ["BLOCKER", "HIGH", "MEDIUM", "LOW", "INFO"]
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "rationale": { "type": "string", "minLength": 1 },
+        "remediation": { "type": "string", "minLength": 1 },
+        "verification": { "$ref": "#/$defs/verification" },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": { "enum": ["PASS", "WARN", "FAIL"] }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["evidence"],
+            "properties": {
+              "evidence": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "NOT_VERIFIED" }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "limitations": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

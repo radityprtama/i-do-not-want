@@ -107,3 +107,54 @@ Default:
   and no unresolved defect requires blocking.
 
 Do not lower severity to produce a green report.
+
+## 8. Machine-readable contract
+
+The optional machine-readable form is JSON Schema Draft 2020-12:
+
+- schema: `schemas/audit-report-v1.schema.json`;
+- example data: `examples/audit-report.v1.json`;
+- generated human view: `examples/example-report.generated.md`.
+
+The contract version is `1.0.0`. Status and severity retain the vocabulary and
+independence defined above. Severity may be absent when no severity is established.
+
+### Evidence invariant
+
+`PASS`, `WARN` and `FAIL` require at least one structured evidence entry. In
+particular, missing or empty evidence can never validate as `PASS`.
+
+Verification provenance is intentionally nonnumeric. Its small method vocabulary is:
+
+- `runtime-observation`;
+- `test-result`;
+- `configuration-review`;
+- `source-review`;
+- `manifest-review`;
+- `documentation-review`;
+- `user-confirmation`.
+
+A method records how a claim was checked, not confidence that can override status.
+`NOT_VERIFIED` remains a status and requires a limitation explaining missing evidence.
+
+### Compatibility policy
+
+The schema `$id` is stable for contract major version 1. Additive optional fields are
+compatible, and consumers must ignore unknown optional fields. Adding an enum value
+requires a minor contract version; consumers that do not recognize it must preserve it
+as unknown and must never reinterpret it as `PASS`.
+
+Adding required fields, removing or renaming fields or enum values, or changing field
+meaning is breaking. A breaking change requires a new major `contractVersion`, schema
+file and versioned `$id`. Documentation-only clarification is a patch change.
+
+Validation tooling pins Ajv `8.20.0`. Run:
+
+```bash
+npm ci
+npm run validate:reports
+npm run render:report -- --check
+```
+
+Ajv 8.17.1 was considered during design, but was not used because npm reported
+`GHSA-2g4f-4pwh-qvx6`; 8.20.0 is the observed fixed release.

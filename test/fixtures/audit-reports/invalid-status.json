@@ -1,0 +1,17 @@
+{
+  "contractVersion": "1.0.0",
+  "target": { "name": "Invalid status example", "paths": ["apps/web"] },
+  "evidenceMode": "repository",
+  "findings": [
+    {
+      "checkId": "SEC-AUTHZ-001",
+      "domain": "security",
+      "status": "UNKNOWN",
+      "severity": "INFO",
+      "rationale": "UNKNOWN is not part of the audit contract.",
+      "verification": { "method": "source-review" },
+      "limitations": []
+    }
+  ],
+  "shipDecision": "SHIP_WITH_WARNINGS"
+}

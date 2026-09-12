@@ -1,0 +1,17 @@
+{
+  "contractVersion": "1.0.0",
+  "target": { "name": "Invalid empty-evidence PASS example", "paths": ["apps/web"] },
+  "evidenceMode": "repository",
+  "findings": [
+    {
+      "checkId": "SEC-AUTHZ-001",
+      "domain": "security",
+      "status": "PASS",
+      "evidence": [],
+      "rationale": "An empty evidence list cannot support PASS.",
+      "verification": { "method": "source-review" },
+      "limitations": []
+    }
+  ],
+  "shipDecision": "SHIP"
+}
