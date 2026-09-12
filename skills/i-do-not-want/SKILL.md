@@ -31,10 +31,10 @@ Identify repository root, application paths, generated/vendor paths,
 deployment configuration and available runtime/testing access.
 
 ### 2. Build the product profile
-Read `references/product-profile.md`.
+Read [the product profile](references/product-profile.md).
 
 ### 3. Route domains
-Read `references/audit-router.md`.
+Read [the audit router](references/audit-router.md).
 
 Run every applicable sibling skill that is available. If a required sibling
 skill is unavailable, mark that domain `BLOCKED`; do not silently pretend it
@@ -47,7 +47,7 @@ Example: optional analytics loading before consent may appear in both privacy
 and legal/trust review. Keep one technical root cause and explain both impacts.
 
 ### 5. Make the ship decision
-Read `references/final-report.md`.
+Read [the final-report guidance](references/final-report.md).
 
 Do not produce a numeric score unless the user has supplied an explicit,
 auditable weighting model.

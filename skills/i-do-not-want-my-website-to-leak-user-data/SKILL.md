@@ -10,12 +10,12 @@ Follow the data, not just the UI.
 
 ## Workflow
 
-1. Read `references/data-inventory-and-flow.md`.
-2. Read `references/logging-and-errors.md`.
-3. If analytics/tracking exists, read `references/analytics-and-consent.md`.
-4. If external services receive user data, read `references/vendors-and-ai.md`.
+1. Read [data inventory and flow](references/data-inventory-and-flow.md).
+2. Read [logging and errors](references/logging-and-errors.md).
+3. If analytics/tracking exists, read [analytics and consent](references/analytics-and-consent.md).
+4. If external services receive user data, read [vendors and AI](references/vendors-and-ai.md).
 5. If persistent user data exists, read
-   `references/retention-deletion-and-access.md`.
+   [retention, deletion, and access guidance](references/retention-deletion-and-access.md).
 6. Report technical privacy risk separately from jurisdiction-specific legal
    obligations.
 

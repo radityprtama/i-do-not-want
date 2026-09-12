@@ -14,14 +14,14 @@ Prefer trust-boundary failures with credible impact over style and hygiene.
 
 1. Map entry points, identities, roles, privileged actions, data stores and
    external calls.
-2. Always read `references/secrets-and-config.md`.
-3. If identity/accounts exist, read `references/authentication-and-sessions.md`.
+2. Always read [secrets and configuration](references/secrets-and-config.md).
+3. If identity/accounts exist, read [authentication and sessions](references/authentication-and-sessions.md).
 4. If ownership, permissions or admin features exist, read
-   `references/authorization.md`.
-5. If APIs/server actions/webhooks exist, read `references/api-and-input.md`.
-6. For browser-facing apps, read `references/browser-security.md`.
-7. If file upload/import exists, read `references/uploads.md`.
-8. Read `references/dependencies-and-supply-chain.md`.
+   [authorization](references/authorization.md).
+5. If APIs/server actions/webhooks exist, read [API and input handling](references/api-and-input.md).
+6. For browser-facing apps, read [browser security](references/browser-security.md).
+7. If file upload/import exists, read [upload security](references/uploads.md).
+8. Read [dependencies and supply-chain guidance](references/dependencies-and-supply-chain.md).
 9. Report findings using stable IDs and bounded evidence.
 
 Never attempt destructive exploitation. Never print discovered secret values.

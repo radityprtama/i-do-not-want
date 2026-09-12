@@ -232,6 +232,15 @@ proof of complete accessibility.
 An exposed admin mutation matters more than an unused package. Please do not
 polish the bicycle while the building is on fire.
 
+## Validate locally
+
+The validator uses Ruby's standard library and Minitest. Run:
+
+```bash
+ruby test/validate_skills_test.rb
+ruby scripts/validate-skills.rb
+```
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) and

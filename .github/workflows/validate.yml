@@ -1,0 +1,20 @@
+name: Validate skills
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      # actions/checkout v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Test validator
+        run: ruby test/validate_skills_test.rb
+      - name: Validate skills
+        run: ruby scripts/validate-skills.rb

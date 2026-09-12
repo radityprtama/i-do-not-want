@@ -23,16 +23,16 @@ This is **risk spotting and implementation review, not legal advice**.
 
 ## Workflow
 
-1. Read `references/product-and-policy-inventory.md`.
-2. If personal data exists, read `references/privacy-policy.md`.
+1. Read [the product and policy inventory](references/product-and-policy-inventory.md).
+2. If personal data exists, read [privacy-policy guidance](references/privacy-policy.md).
 3. If cookies/analytics/ads/embeds exist, read
-   `references/cookies-and-tracking.md`.
-4. If accounts/services/UGC exist, read `references/terms-and-ugc.md`.
-5. If payments/subscriptions exist, read `references/commerce-and-refunds.md`.
+   [cookies and tracking](references/cookies-and-tracking.md).
+4. If accounts/services/UGC exist, read [terms and UGC guidance](references/terms-and-ugc.md).
+5. If payments/subscriptions exist, read [commerce and refunds](references/commerce-and-refunds.md).
 6. Always review public marketing via
-   `references/claims-reviews-and-endorsements.md`.
-7. If third-party assets/content exist, read `references/copyright-and-assets.md`.
-8. If vendors/processors exist, read `references/third-parties.md`.
+   [claims, reviews, and endorsements guidance](references/claims-reviews-and-endorsements.md).
+7. If third-party assets/content exist, read [copyright and assets](references/copyright-and-assets.md).
+8. If vendors/processors exist, read [third-party guidance](references/third-parties.md).
 
 Draft policy language only when requested and only from established facts.
 Unresolved facts become explicit placeholders/questions.

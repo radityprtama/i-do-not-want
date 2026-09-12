@@ -11,13 +11,13 @@ Assume localhost is unusually friendly.
 ## Workflow
 
 1. Establish deployment/runtime model.
-2. Read `references/environment-and-build.md`.
-3. Read `references/errors-timeouts-and-retries.md`.
+2. Read [environment and build guidance](references/environment-and-build.md).
+3. Read [errors, timeouts, and retries](references/errors-timeouts-and-retries.md).
 4. If persistent data exists, read
-   `references/database-migrations-and-backups.md`.
-5. Read `references/health-observability-and-operations.md`.
+   [database migrations and backups](references/database-migrations-and-backups.md).
+5. Read [health, observability, and operations](references/health-observability-and-operations.md).
 6. If workers/queues/scheduled/long tasks exist, read
-   `references/concurrency-and-jobs.md`.
+   [concurrency and jobs](references/concurrency-and-jobs.md).
 
 Do not claim backup/recovery works because a backup switch is enabled. Recovery
 needs evidence.
