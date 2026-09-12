@@ -1,0 +1,11 @@
+{
+  "name": "intentionally-broken-nextjs-audit-fixture",
+  "private": true,
+  "version": "0.0.0-do-not-deploy",
+  "description": "Synthetic vulnerable source fixture. Never deploy.",
+  "dependencies": {
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  }
+}
