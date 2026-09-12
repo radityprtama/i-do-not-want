@@ -53,7 +53,8 @@ was observed. Claude Code and OpenCode behavior is separate follow-up work.
 npx skills add radityprtama/i-do-not-want
 ```
 
-Repository: https://github.com/radityprtama/i-do-not-want  
+Repository: https://github.com/radityprtama/i-do-not-want
+
 Directory: https://skills.sh/radityprtama/i-do-not-want/i-do-not-want
 
 This project does not replace legal counsel, penetration testing, assistive-technology

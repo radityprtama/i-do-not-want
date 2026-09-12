@@ -11,7 +11,8 @@ rule is simple: never call something PASS without evidence.
 npx skills add radityprtama/i-do-not-want
 ```
 
-GitHub: https://github.com/radityprtama/i-do-not-want  
+GitHub: https://github.com/radityprtama/i-do-not-want
+
 skills.sh: https://skills.sh/radityprtama/i-do-not-want/i-do-not-want
 
 The repository includes an intentionally broken Next.js fixture, stable expected
