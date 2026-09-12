@@ -38,7 +38,7 @@ for (const finding of report.findings) {
   }
 }
 
-lines.push("## Ship decision", "", `**${report.shipDecision.replaceAll("_", " ")}**`, "");
+lines.push("## Ship decision", "", `**${report.shipDecision.replaceAll("_", " ")}**`);
 const rendered = `${lines.join("\n")}\n`;
 
 if (process.argv.includes("--check")) {
