@@ -1,0 +1,70 @@
+{
+  "contractVersion": "1.0.0",
+  "target": {
+    "name": "Example web application",
+    "paths": ["apps/web"]
+  },
+  "evidenceMode": "repository + local runtime",
+  "findings": [
+    {
+      "checkId": "SEC-AUTHZ-001",
+      "domain": "security",
+      "status": "FAIL",
+      "severity": "BLOCKER",
+      "evidence": [
+        {
+          "kind": "source",
+          "location": "apps/web/app/api/admin/users/[id]/route.ts:21-37",
+          "summary": "The privileged delete operation has no admin permission check."
+        }
+      ],
+      "rationale": "An authenticated user may access another user's privileged operation.",
+      "remediation": "Enforce the required permission before resolving or mutating the target resource.",
+      "verification": { "method": "source-review" },
+      "limitations": ["Runtime exploitation was not attempted."]
+    },
+    {
+      "checkId": "LEGAL-CLAIM-001",
+      "domain": "legal-trust",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "evidence": [
+        {
+          "kind": "source",
+          "location": "apps/web/components/hero.tsx:48",
+          "summary": "The page displays “Trusted by 10,000+ teams”."
+        }
+      ],
+      "rationale": "No substantiation for the quantitative customer claim was present in the supplied evidence.",
+      "remediation": "Supply substantiation or remove the claim.",
+      "verification": { "method": "source-review" },
+      "limitations": ["Only the supplied repository and documents were reviewed."]
+    },
+    {
+      "checkId": "PRIV-TRACK-001",
+      "domain": "privacy",
+      "status": "WARN",
+      "severity": "MEDIUM",
+      "evidence": [
+        {
+          "kind": "source",
+          "location": "apps/web/lib/analytics.ts:40-48",
+          "summary": "The analytics event spreads the full user object into its payload."
+        }
+      ],
+      "rationale": "The event may send more personal data than the feature requires.",
+      "remediation": "Allowlist only the fields required for the event.",
+      "verification": { "method": "source-review" },
+      "limitations": ["The provider's received payload was not observed at runtime."]
+    },
+    {
+      "checkId": "A11Y-AT-001",
+      "domain": "accessibility",
+      "status": "NOT_VERIFIED",
+      "rationale": "No assistive-technology runtime was available, so source review cannot establish compatibility.",
+      "verification": { "method": "source-review" },
+      "limitations": ["Assistive-technology behavior was not tested."]
+    }
+  ],
+  "shipDecision": "DO_NOT_SHIP"
+}

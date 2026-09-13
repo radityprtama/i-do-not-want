@@ -1,0 +1,16 @@
+{
+  "contractVersion": "1.0.0",
+  "target": { "name": "Invalid PASS example", "paths": ["apps/web"] },
+  "evidenceMode": "repository",
+  "findings": [
+    {
+      "checkId": "SEC-AUTHZ-001",
+      "domain": "security",
+      "status": "PASS",
+      "rationale": "This claim has no evidence and must be rejected.",
+      "verification": { "method": "source-review" },
+      "limitations": []
+    }
+  ],
+  "shipDecision": "SHIP"
+}

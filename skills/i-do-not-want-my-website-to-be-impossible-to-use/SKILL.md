@@ -12,12 +12,12 @@ scanner printed zero violations.
 ## Workflow
 
 1. Identify critical user journeys.
-2. Read `references/semantics-and-content.md`.
-3. Read `references/keyboard-and-focus.md`.
-4. If forms exist, read `references/forms-and-errors.md`.
-5. If dialogs/menus/tabs/custom controls exist, read `references/widgets.md`.
-6. Read `references/visual-motion-and-responsive.md`.
-7. Read `references/testing-boundaries.md`.
+2. Read [semantics and content](references/semantics-and-content.md).
+3. Read [keyboard and focus](references/keyboard-and-focus.md).
+4. If forms exist, read [forms and errors](references/forms-and-errors.md).
+5. If dialogs/menus/tabs/custom controls exist, read [widget guidance](references/widgets.md).
+6. Read [visual, motion, and responsive guidance](references/visual-motion-and-responsive.md).
+7. Read [testing boundaries](references/testing-boundaries.md).
 
 Prefer native HTML semantics before ARIA.
 

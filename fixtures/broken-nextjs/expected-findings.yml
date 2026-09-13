@@ -1,0 +1,133 @@
+version: 1
+requiredClasses:
+  - admin-api-authorization
+  - webhook-verification
+  - xss-input-handling
+  - secret-config
+  - marketing-claim
+  - testimonial
+  - analytics-consent
+  - accessibility-labeling
+  - idempotency
+  - production-boundaries
+findings:
+  - case: unauthenticated-admin-mutation
+    class: admin-api-authorization
+    id: SEC-AUTHZ-001
+    file: app/api/admin/users/route.ts
+    locator:
+      type: marker
+      value: "SEED: unauthenticated-admin-mutation"
+    status: FAIL
+    severity: BLOCKER
+    rationale: Privileged mutation lacks server-side authorization.
+  - case: unsigned-payment-webhook
+    class: webhook-verification
+    id: SEC-WEBHOOK-001
+    file: app/api/webhooks/payment/route.ts
+    locator:
+      type: marker
+      value: "SEED: unsigned-payment-webhook"
+    status: FAIL
+    severity: HIGH
+    rationale: Webhook effects trust an unverified request body.
+  - case: reflected-profile-xss
+    class: xss-input-handling
+    id: SEC-XSS-001
+    file: app/page.tsx
+    locator:
+      type: marker
+      value: "SEED: reflected-profile-xss"
+    status: FAIL
+    severity: HIGH
+    rationale: Query input reaches an HTML sink without sanitization.
+  - case: public-server-secret
+    class: secret-config
+    id: SEC-SECRET-002
+    file: lib/config.ts
+    locator:
+      type: marker
+      value: "SEED: public-server-secret"
+    status: FAIL
+    severity: HIGH
+    rationale: A server-designated secret uses a client-exposed environment variable.
+  - case: unsupported-customer-count
+    class: marketing-claim
+    id: LEGAL-CLAIM-001
+    file: app/page.tsx
+    locator:
+      type: marker
+      value: "SEED: unsupported-customer-count"
+    status: FAIL
+    severity: HIGH
+    rationale: A quantitative customer claim has no supporting evidence.
+  - case: fabricated-testimonial
+    class: testimonial
+    id: LEGAL-REVIEW-001
+    file: app/page.tsx
+    locator:
+      type: marker
+      value: "SEED: fabricated-testimonial"
+    status: FAIL
+    severity: HIGH
+    rationale: The synthetic testimonial has no provenance or authorization.
+  - case: tracking-before-consent
+    class: analytics-consent
+    id: LEGAL-COOKIE-001
+    file: lib/analytics.ts
+    locator:
+      type: marker
+      value: "SEED: tracking-before-consent"
+    status: FAIL
+    severity: HIGH
+    rationale: Optional analytics initializes without a consent decision.
+  - case: excessive-analytics-payload
+    class: analytics-consent
+    id: PRIV-TRACK-001
+    file: lib/analytics.ts
+    locator:
+      type: marker
+      value: "SEED: excessive-analytics-payload"
+    status: FAIL
+    severity: HIGH
+    rationale: The analytics payload sends sensitive fields unnecessarily.
+  - case: unnamed-icon-button
+    class: accessibility-labeling
+    id: A11Y-NAME-001
+    file: app/page.tsx
+    locator:
+      type: marker
+      value: "SEED: unnamed-icon-button"
+    status: FAIL
+    severity: HIGH
+    rationale: The icon-only close control has no accessible name.
+  - case: payment-without-idempotency
+    class: idempotency
+    id: PROD-IDEMP-001
+    file: app/api/payments/route.ts
+    locator:
+      type: marker
+      value: "SEED: payment-without-idempotency"
+    status: FAIL
+    severity: HIGH
+    rationale: Retrying the payment route can duplicate a charge.
+  - case: retry-duplicates-email
+    class: idempotency
+    id: PROD-JOB-001
+    file: app/api/jobs/email/route.ts
+    locator:
+      type: marker
+      value: "SEED: retry-duplicates-email"
+    status: FAIL
+    severity: HIGH
+    rationale: Job redelivery can duplicate an external email side effect.
+  - case: payment-call-without-timeout
+    class: production-boundaries
+    id: PROD-TIMEOUT-001
+    file: app/api/payments/route.ts
+    locator:
+      type: marker
+      value: "SEED: payment-call-without-timeout"
+    status: FAIL
+    severity: HIGH
+    rationale: The payment provider call has no timeout boundary.

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Evidence-backed SEC-AUTHZ-001 terminal demo</title>
+  <desc id="desc">A terminal-style presentation of a validated expected finding from the synthetic broken Next.js fixture.</desc>
+  <rect width="1200" height="630" fill="#101214"/>
+  <rect x="64" y="64" width="1072" height="502" rx="18" fill="#171a1d" stroke="#343a40" stroke-width="2"/>
+  <circle cx="102" cy="102" r="9" fill="#ff6b6b"/>
+  <circle cx="132" cy="102" r="9" fill="#ffd43b"/>
+  <circle cx="162" cy="102" r="9" fill="#69db7c"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25">
+    <text x="100" y="175" fill="#8ce99a">$ ruby scripts/validate-broken-fixture.rb</text>
+    <text x="100" y="230" fill="#8ce99a">$ ruby -ryaml -e '...unauthenticated-admin-mutation...'</text>
+    <text x="100" y="315" fill="#ff8787" font-weight="700">BLOCKER SEC-AUTHZ-001 — FAIL</text>
+    <text x="100" y="365" fill="#dee2e6">app/api/admin/users/route.ts</text>
+    <text x="100" y="408" fill="#adb5bd">[SEED: unauthenticated-admin-mutation]</text>
+    <text x="100" y="475" fill="#f1f3f5">Privileged mutation lacks server-side authorization.</text>
+    <text x="100" y="530" fill="#868e96" font-size="19">Source: validated fixture + expected-findings.yml; presentation is not sole evidence.</text>
+  </g>
+</svg>

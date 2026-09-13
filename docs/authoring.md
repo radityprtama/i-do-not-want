@@ -32,7 +32,11 @@ The main skill should contain:
 - routing to references;
 - output contract.
 
-Move dense domain knowledge to `references/`.
+Move dense domain knowledge to `references/`. Link each local Markdown dependency
+with normal inline Markdown syntax, for example
+`[authorization guidance](references/authorization.md)`. The repository validator
+resolves these links relative to `SKILL.md`; external and anchor-only links are not
+local dependencies.
 
 ## Reference writing template
 
@@ -57,6 +61,33 @@ Move dense domain knowledge to `references/`.
 ## Remediation principles
 ...
 ```
+
+## Stable check declarations
+
+A stable check ID has one canonical declaration. It must be a Markdown list item
+beneath a `## Checks` heading in `skills/*/references/*.md`, outside a fenced code
+block:
+
+```markdown
+## Checks
+
+- `DOMAIN-TOPIC-001` HIGH: concise defect definition.
+```
+
+Only this form declares an ID. Reusing that ID in explanations, examples, reports,
+fixtures or cross-references does not redeclare it.
+
+## Local validation
+
+Run both commands before submitting a change:
+
+```bash
+ruby test/validate_skills_test.rb
+ruby scripts/validate-skills.rb
+```
+
+The validator fails closed on malformed frontmatter, invalid skill names, missing
+local Markdown dependencies and duplicate canonical check declarations.
 
 ## Avoid checkbox theater
 

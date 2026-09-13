@@ -1,0 +1,17 @@
+{
+  "contractVersion": "1.0.0",
+  "target": { "name": "Invalid severity example", "paths": ["apps/web"] },
+  "evidenceMode": "repository",
+  "findings": [
+    {
+      "checkId": "SEC-AUTHZ-001",
+      "domain": "security",
+      "status": "BLOCKED",
+      "severity": "URGENT",
+      "rationale": "URGENT is not part of the severity vocabulary.",
+      "verification": { "method": "source-review" },
+      "limitations": ["Required access is unavailable."]
+    }
+  ],
+  "shipDecision": "SHIP_WITH_WARNINGS"
+}

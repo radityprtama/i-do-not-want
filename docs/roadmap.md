@@ -16,7 +16,7 @@
 - [ ] Better Auth / Clerk / Auth.js patterns;
 - [ ] Stripe / Polar / Paddle commerce patterns;
 - [ ] PostHog / GA / Sentry tracking inventory;
-- [ ] machine-readable JSON report schema;
+- [x] machine-readable JSON report schema;
 - [ ] test fixtures containing intentionally broken apps.
 
 ## v0.3 — More things we do not want

@@ -1,0 +1,13 @@
+{
+  "name": "i-do-not-want-validation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:reports": "node scripts/validate-audit-reports.mjs",
+    "render:report": "node scripts/render-audit-report.mjs",
+    "validate": "ruby -Itest -e 'Dir[\"test/**/*_test.rb\"].sort.each { |file| require File.expand_path(file) }' && ruby scripts/validate-skills.rb && ruby scripts/validate-broken-fixture.rb && ruby scripts/validate-launch-kit.rb && npm run validate:reports && npm run render:report -- --check"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0"
+  }
+}
