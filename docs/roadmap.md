@@ -17,7 +17,7 @@
 - [ ] Stripe / Polar / Paddle commerce patterns;
 - [ ] PostHog / GA / Sentry tracking inventory;
 - [x] machine-readable JSON report schema;
-- [ ] test fixtures containing intentionally broken apps.
+- [x] test fixtures containing intentionally broken apps.
 
 ## v0.3 — More things we do not want
 Possible skills:

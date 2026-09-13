@@ -2,6 +2,9 @@
 
 > Things your AI forgot while building your entire SaaS in 47 minutes.
 
+[![validate](https://github.com/radityprtama/i-do-not-want/actions/workflows/validate.yml/badge.svg)](https://github.com/radityprtama/i-do-not-want/actions/workflows/validate.yml)
+[![GitHub release](https://img.shields.io/github/v/release/radityprtama/i-do-not-want)](https://github.com/radityprtama/i-do-not-want/releases)
+
 Your app works. Cool.
 
 Now check whether it leaks secrets, trusts the client, invents testimonials,
@@ -61,6 +64,18 @@ Or:
 Run i-do-not-want-my-website-to-get-hacked on this repository.
 Do not fix anything yet; give me the evidence report first.
 ```
+
+## What v0.2 adds
+
+- deterministic skill/frontmatter/reference/check-ID validation on every PR;
+- a [synthetic broken Next.js fixture](fixtures/broken-nextjs/README.md) with
+  validated expected findings;
+- a [versioned machine-readable report contract](schemas/audit-report-v1.schema.json);
+- [evidence-bounded Codex compatibility results](docs/compatibility/codex.md);
+- a reusable [launch and measurement kit](docs/launch-kit/README.md).
+
+The fixture is deliberately vulnerable and must never be deployed or copied into
+production.
 
 ## Why this exists
 
@@ -138,7 +153,7 @@ Evidence mode: repository + local runtime
 Security       FAIL
 Legal/Trust    WARN
 Privacy        WARN
-Accessibility  PARTIALLY VERIFIED
+Accessibility  NOT_VERIFIED
 Production     PASS
 
 BLOCKER SEC-AUTHZ-001
@@ -178,38 +193,32 @@ SHIP DECISION: DO NOT SHIP
 
 ```text
 i-do-not-want/
-├── README.md
-├── LICENSE
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── CHANGELOG.md
+├── .github/workflows/validate.yml
 ├── docs/
+│   ├── compatibility/
+│   ├── launch-kit/
 │   ├── architecture.md
 │   ├── audit-contract.md
 │   ├── authoring.md
 │   ├── check-id-registry.md
 │   └── roadmap.md
 ├── examples/
+│   ├── audit-report.v1.json
+│   ├── example-report.generated.md
 │   └── example-report.md
-└── skills/
-    ├── i-do-not-want/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── i-do-not-want-my-website-to-get-hacked/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── i-do-not-want-my-website-to-get-sued/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── i-do-not-want-my-website-to-leak-user-data/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── i-do-not-want-my-website-to-be-impossible-to-use/
-    │   ├── SKILL.md
-    │   └── references/
-    └── i-do-not-want-my-website-to-die-in-production/
-        ├── SKILL.md
-        └── references/
+├── fixtures/broken-nextjs/
+├── schemas/audit-report-v1.schema.json
+├── scripts/
+├── skills/
+│   ├── i-do-not-want/
+│   └── i-do-not-want-my-website-to-*/
+├── test/
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── package.json
+├── README.md
+└── SECURITY.md
 ```
 
 ## Design principles
@@ -250,7 +259,14 @@ polish the bicycle while the building is on fire.
 
 ## Validate locally
 
-The validator uses Ruby's standard library and Minitest. Run:
+Run the complete repository validation with Node.js and Ruby available:
+
+```bash
+npm ci
+npm run validate
+```
+
+For skill-structure changes, the focused Ruby commands are:
 
 ```bash
 ruby test/validate_skills_test.rb
