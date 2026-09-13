@@ -1,4 +1,4 @@
-name: Validate skills
+name: Validate repository
 
 on:
   push:
