@@ -1,31 +1,40 @@
-# Codex Behavioral Compatibility — 2026-09-12
+# Codex Behavioral Compatibility — 2026-09-13
 
 ## Result
 
-Codex behavioral compatibility is **NOT_VERIFIED** in this environment.
+Codex behavioral execution is **OBSERVED** for the installed skill snapshot on
+`codex-cli 0.151.0`.
 
-The CLI was available and all six audit commands were attempted, but no model turn
-started because the configured API credential was rejected with HTTP 401
-`invalid_api_key`. This report does not treat installation or command availability as
-behavioral compatibility.
+All six read-only, ephemeral audit prompts completed successfully. Tool events show
+that Codex loaded each requested `SKILL.md`, subsequently loaded applicable reference
+files, inspected the synthetic fixture, used the repository's report vocabulary, and
+left the repository unchanged.
+
+The installed files under `/home/raditya/.agents/skills/` were compared with this
+branch. Reference files matched. The six `SKILL.md` entrypoints differed only because
+this branch converted backticked reference paths into normal Markdown links in
+WIP-190. This run therefore establishes behavior for the semantically equivalent
+installed snapshot, but a fresh installation of the exact branch snapshot remains
+**NOT_VERIFIED**.
 
 ## Environment
 
 | Field | Observed value |
 |---|---|
-| Date (UTC) | 2026-09-12 |
+| Date (UTC) | 2026-09-13 |
 | Codex | `codex-cli 0.151.0` |
 | System | `Linux 6.1.0-45-amd64 x86_64 GNU/Linux` |
-| Repository commit tested | `348bf58cd74fa4df506a321d6d5f6a33a8048f1d` |
+| Repository commit tested | `e0d2de467a80347f271205964ec647507d24dfe2` |
+| Installed skills | `/home/raditya/.agents/skills/i-do-not-want*` |
 | Target | `fixtures/broken-nextjs` |
 | Sandbox | `read-only` |
 | Session persistence | `--ephemeral` |
+| User configuration | Enabled |
 | Raw output location | Temporary directory outside the repository; not committed |
 
-The first attempts used normal user configuration and stopped before execution because
-`config.toml` contained an incompatible `tui.model_availability_nux` value. The runs
-were repeated with `--ignore-user-config`; authentication is retained by that option,
-but the API rejected the available credential. No credential value is recorded here.
+A preliminary smoke test returned exactly `CODEX_READY` with exit code 0. This
+replaced the prior 2026-09-12 result, where configuration and credential errors had
+prevented model execution.
 
 ## Reproducible invocation
 
@@ -33,7 +42,6 @@ Each file under `docs/compatibility/prompts/` was invoked separately:
 
 ```bash
 codex exec \
-  --ignore-user-config \
   --sandbox read-only \
   --ephemeral \
   --json \
@@ -50,30 +58,61 @@ were not added to the repository.
 
 | Capability | Result | Evidence / limitation |
 |---|---|---|
-| Root skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Security skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Legal/trust skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Privacy skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Accessibility skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Production skill explicit invocation | NOT_VERIFIED | Command attempted; API returned HTTP 401 before a model turn. |
-| Root orchestrator routing | NOT_VERIFIED | No model turn occurred. |
-| Progressive reference loading | NOT_VERIFIED | JSONL contained only transport/authentication errors; no file-read event occurred. |
-| Report vocabulary consistency | NOT_VERIFIED | No audit report was produced. |
-| Audit-only non-mutation | OBSERVED | Git status/diff remained clean and deterministic source hashes matched before/after every attempt. |
+| Root skill explicit invocation | OBSERVED | Exit 0; root skill and router/report references were read; a bounded ship report was produced. |
+| Security skill explicit invocation | OBSERVED | Exit 0; security skill and applicable references were read; source-backed findings were produced. |
+| Legal/trust skill explicit invocation | OBSERVED | Exit 0; legal/trust skill and references were read; legal uncertainty remained bounded. |
+| Privacy skill explicit invocation | OBSERVED | Exit 0; privacy skill and references were read; source-backed and NOT_VERIFIED results were separated. |
+| Accessibility skill explicit invocation | OBSERVED | Exit 0; accessibility skill and references were read; runtime and AT behavior remained NOT_VERIFIED. |
+| Production skill explicit invocation | OBSERVED | Exit 0; production skill and references were read; no runtime or recovery evidence was invented. |
+| Root orchestrator routing | OBSERVED | Root events show the root skill, three router/report references, all five domain skills, and applicable domain references loaded in sequence. |
+| Progressive reference loading | OBSERVED | In every run, command events show the selected `SKILL.md` read before `references/*.md`. |
+| Report vocabulary consistency | OBSERVED | Bounded outputs used only PASS/WARN/FAIL/BLOCKED/NOT_APPLICABLE/NOT_VERIFIED tokens; no PASS was claimed. |
+| Audit-only non-mutation | OBSERVED | Every status/diff check was clean and every deterministic source hash matched. |
+| Exact current-branch installation | NOT_VERIFIED | Codex used the installed snapshot; branch entrypoints differ only in Markdown-link formatting, but were not reinstalled for this run. |
+
+## Progressive-loading evidence
+
+The JSONL event stream exposes completed `command_execution` items. Bounded event
+inspection established these orderings:
+
+- root: root `SKILL.md` → product-profile/audit-router/final-report references → five
+  domain `SKILL.md` files → applicable domain references;
+- security: security `SKILL.md` → fixture inventory → six applicable references;
+- legal/trust: legal `SKILL.md` → product inventory → seven further applicable
+  references;
+- privacy: privacy `SKILL.md` → fixture inventory → privacy references;
+- accessibility: accessibility `SKILL.md` → three initial references → three remaining
+  applicable references;
+- production: production `SKILL.md` → fixture inventory → five references.
+
+This is direct tool-event evidence rather than a model claim. Full event streams are
+not committed because bounded commands, ordering and paths are sufficient for this
+compatibility result.
+
+## Report evidence
+
+The root run produced a `DO NOT SHIP` decision from static fixture evidence. It found
+the seeded authorization blocker and high-impact security, legal/trust, privacy,
+accessibility and production defects. It separately reported controls lacking runtime,
+jurisdiction, deployment, assistive-technology or provider evidence as
+`NOT_VERIFIED` or `NOT_APPLICABLE`.
+
+Individual domain runs completed and cited fixture paths. No output contained a PASS
+claim, so this run does not test a positive PASS-evidence example; it does show that
+missing evidence was retained as `NOT_VERIFIED` rather than converted to PASS.
 
 ## Non-mutation evidence
 
-Before the attempts, the WIP-193 harness was copied to `/tmp` and stashed so the
-repository itself was clean. After every invocation:
+Before and after every invocation:
 
 ```bash
 git status --porcelain
 git diff --exit-code
 ```
 
-`git status --porcelain` was empty and `git diff --exit-code` returned 0.
+All status outputs were empty and all diff commands returned 0.
 
-The deterministic hash covered file paths and bytes under exactly:
+The deterministic hash covered sorted relative paths and file bytes under exactly:
 
 ```text
 skills/
@@ -81,29 +120,18 @@ fixtures/broken-nextjs/
 ```
 
 It excluded `.git`, `node_modules`, `.cache`, `cache`, `tmp`, `*.log`, timestamps and
-other filesystem metadata. The sorted relative path is included in each file's hash
-input, so renames change the result.
-
-Observed pre/post SHA-256:
+filesystem metadata. Every pre/post hash was:
 
 ```text
 df49e6cb2d8f9c76cd6a706c8f926f026f47371ca508fc1e9c3a9ed68614b197
 ```
 
-All six post-attempt hashes matched that value.
-
-## Progressive-loading boundary
-
-A model's statement that it read a reference would not be sufficient proof. An
-`OBSERVED` result requires Codex tool events showing an ordered read of the selected
-`SKILL.md` followed by applicable `references/*.md` files. The captured events had no
-file reads because authentication failed, so this capability remains `NOT_VERIFIED`.
-
 ## Known limitations
 
-- The available Codex API credential was invalid at execution time.
-- No model turn or audit report was produced.
-- Root routing, reference loading, findings and vocabulary remain unverified.
-- Claude Code and OpenCode behavioral verification are outside this narrowed report.
-- Full transcripts are intentionally not committed; only safe prompts, commands and
-  bounded observations are retained.
+- Codex exercised the globally installed snapshot, not a fresh install of the exact
+  branch entrypoints. Their observed differences are limited to Markdown link markup.
+- The audit was static; no fixture route or external service was executed.
+- No output made a PASS claim, so PASS evidence behavior was not behaviorally tested.
+- Claude Code and OpenCode behavioral verification remain in related follow-up WIP-211.
+- Full transcripts are intentionally not committed; reproducible prompts, commands,
+  bounded event evidence and final-result summaries are retained.
