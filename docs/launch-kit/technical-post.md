@@ -42,10 +42,11 @@ a numerical confidence score that could disguise missing evidence.
 
 ## Compatibility is also evidence-bounded
 
-Codex CLI 0.151.0 was available during the recorded compatibility run, but its API
-credential was rejected before a model turn. Therefore routing, progressive reference
-loading, findings, and vocabulary remain `NOT_VERIFIED`. Only audit-only non-mutation
-was observed. Claude Code and OpenCode behavior is separate follow-up work.
+Codex CLI 0.151.0 completed the root and five domain audits in read-only, ephemeral
+sessions. Tool events establish explicit invocation, root routing, progressive
+reference loading, report vocabulary, and non-mutation for the installed skill
+snapshot. A fresh install of this branch's link-formatting update remains
+`NOT_VERIFIED`. Claude Code and OpenCode behavior is separate follow-up work.
 
 ## Try it and challenge it
 
